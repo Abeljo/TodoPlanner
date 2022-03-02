@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 
-import 'DetailTodo.dart';
-
 class DoingTodo extends StatefulWidget {
   const DoingTodo({Key? key}) : super(key: key);
 
@@ -119,15 +117,82 @@ class _DoingTodoState extends State<DoingTodo> {
                             title: Text("Open"),
                             trailingIcon: Icon(Icons.open_in_new),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DetailTodo(
-                                      documentSnapshot['title'],
-                                      documentSnapshot['body'],
-                                      documentSnapshot['due'],
-                                    ),
-                                  ));
+                              showModalBottomSheet(
+                                  backgroundColor: Colors.blueAccent,
+                                  context: context,
+                                  builder: (context) => Center(
+                                          child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            margin: const EdgeInsets.all(15),
+                                            child: Text(
+                                              documentSnapshot['title'],
+                                              style: TextStyle(
+                                                  fontSize: 40,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.all(15),
+                                            child: Text(
+                                                documentSnapshot['body'],
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.white)),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Container(
+                                                  margin:
+                                                      const EdgeInsets.all(15),
+                                                  child: Icon(Icons.watch,
+                                                      size: 30)),
+                                              Container(
+                                                margin:
+                                                    const EdgeInsets.all(15),
+                                                child: Text(
+                                                    documentSnapshot['due'],
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.white)),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Container(
+                                                margin:
+                                                    const EdgeInsets.all(15),
+                                                child: Text('Action type : ',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                              Container(
+                                                margin:
+                                                    const EdgeInsets.all(15),
+                                                child: Text(
+                                                    documentSnapshot['type'],
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white)),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )));
                             }),
                         FocusedMenuItem(
                             title: Text("Edit"),
@@ -160,7 +225,7 @@ class _DoingTodoState extends State<DoingTodo> {
                       child: Card(
                         margin: EdgeInsets.all(30),
                         shadowColor: Colors.blue,
-                        color: Colors.yellowAccent,
+                        color: Color.fromARGB(255, 180, 231, 255),
                         shape: RoundedRectangleBorder(
                           side:
                               const BorderSide(color: Colors.black, width: 0.5),
@@ -187,7 +252,6 @@ class _DoingTodoState extends State<DoingTodo> {
                                     const Divider(),
                                     Container(
                                       margin: EdgeInsets.all(10),
-                                      color: Colors.white,
                                       child: Text(documentSnapshot['body'],
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 3,

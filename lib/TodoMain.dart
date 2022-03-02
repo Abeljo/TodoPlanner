@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 
-import 'DetailTodo.dart';
-
 class TodoMain extends StatefulWidget {
   const TodoMain({Key? key}) : super(key: key);
 
@@ -55,6 +53,7 @@ class _TodoMainState extends State<TodoMain> {
                   decoration: const InputDecoration(labelText: 'Type'),
                 ),
                 TextField(
+                  keyboardType: TextInputType.number,
                   controller: _dueControl,
                   decoration: const InputDecoration(labelText: 'Due Date'),
                 ),
@@ -141,15 +140,82 @@ class _TodoMainState extends State<TodoMain> {
                             title: Text("Open"),
                             trailingIcon: Icon(Icons.open_in_new),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DetailTodo(
-                                      documentSnapshot['title'],
-                                      documentSnapshot['body'],
-                                      documentSnapshot['due'],
-                                    ),
-                                  ));
+                              showModalBottomSheet(
+                                  backgroundColor: Colors.blueAccent,
+                                  context: context,
+                                  builder: (context) => Center(
+                                          child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            margin: const EdgeInsets.all(15),
+                                            child: Text(
+                                              documentSnapshot['title'],
+                                              style: TextStyle(
+                                                  fontSize: 40,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.all(15),
+                                            child: Text(
+                                                documentSnapshot['body'],
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.white)),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Container(
+                                                  margin:
+                                                      const EdgeInsets.all(15),
+                                                  child: Icon(Icons.watch,
+                                                      size: 30)),
+                                              Container(
+                                                margin:
+                                                    const EdgeInsets.all(15),
+                                                child: Text(
+                                                    documentSnapshot['due'],
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.white)),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Container(
+                                                margin:
+                                                    const EdgeInsets.all(15),
+                                                child: Text('Action type : ',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                              Container(
+                                                margin:
+                                                    const EdgeInsets.all(15),
+                                                child: Text(
+                                                    documentSnapshot['type'],
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white)),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )));
                             }),
                         FocusedMenuItem(
                             title: Text("Edit"),
@@ -184,8 +250,8 @@ class _TodoMainState extends State<TodoMain> {
 
                       child: Card(
                         margin: EdgeInsets.all(30),
-                        shadowColor: Colors.blue,
-                        color: Colors.yellowAccent,
+                        shadowColor: Color.fromARGB(255, 174, 86, 255),
+                        color: Color.fromARGB(255, 180, 231, 255),
                         shape: RoundedRectangleBorder(
                           side:
                               const BorderSide(color: Colors.black, width: 0.5),
@@ -212,11 +278,12 @@ class _TodoMainState extends State<TodoMain> {
                                     const Divider(),
                                     Container(
                                       margin: EdgeInsets.all(10),
-                                      color: Colors.white,
                                       child: Text(documentSnapshot['body'],
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 3,
-                                          style: TextStyle(fontSize: 25)),
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          )),
                                     ),
                                     const Divider(),
                                     Row(
