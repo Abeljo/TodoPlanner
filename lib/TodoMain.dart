@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:focused_menu/modals.dart';
 
 import 'DetailTodo.dart';
 
@@ -92,24 +94,71 @@ class _TodoMainState extends State<TodoMain> {
                       final DocumentSnapshot documentSnapshot =
                           streamSnapshot.data!.docs[index];
 
-                      return GestureDetector(
-                        onTap: () =>
-                            Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => DetailTodo(
-                            documentSnapshot['title'],
-                            documentSnapshot['body'],
-                          ),
-                        )),
+                      return FocusedMenuHolder(
+                        menuWidth: MediaQuery.of(context).size.width * 0.50,
+                        blurSize: 5.0,
+                        menuItemExtent: 45,
+                        menuBoxDecoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0))),
+                        duration: Duration(milliseconds: 100),
+                        animateMenuItems: true,
+                        blurBackgroundColor: Colors.black54,
+                        openWithTap:
+                            true, // Open Focused-Menu on Tap rather than Long Press
+                        menuOffset:
+                            10.0, // Offset value to show menuItem from the selected item
+                        bottomOffsetHeight: 80.0,
+
+                        menuItems: [
+                          FocusedMenuItem(
+                              title: Text("Open"),
+                              trailingIcon: Icon(Icons.open_in_new),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DetailTodo(
+                                        documentSnapshot['title'],
+                                        documentSnapshot['body'],
+                                      ),
+                                    ));
+                              }),
+                          FocusedMenuItem(
+                              title: Text("Edit"),
+                              trailingIcon: Icon(Icons.edit),
+                              onPressed: () {
+                                createTodo(documentSnapshot);
+                              }),
+                          FocusedMenuItem(
+                              title: Text("Favorite"),
+                              trailingIcon: Icon(Icons.favorite_border),
+                              onPressed: () {}),
+                          FocusedMenuItem(
+                              title: Text(
+                                "Delete",
+                                style: TextStyle(color: Colors.redAccent),
+                              ),
+                              trailingIcon: Icon(
+                                Icons.delete,
+                                color: Colors.redAccent,
+                              ),
+                              onPressed: () {
+                                _deleteTodo(documentSnapshot.id);
+                              }),
+                        ],
+                        onPressed: () {},
                         child: Card(
                           margin: EdgeInsets.all(30),
                           shadowColor: Colors.blue,
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
-                            side:
-                                const BorderSide(color: Colors.blue, width: 1),
-                            borderRadius: BorderRadius.circular(20),
+                            side: const BorderSide(
+                                color: Colors.blue, width: 0.5),
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          elevation: 7,
+                          elevation: 5,
                           child: Column(
                             children: [
                               Container(
@@ -127,35 +176,6 @@ class _TodoMainState extends State<TodoMain> {
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
                                       style: TextStyle(fontSize: 25)),
-                                ),
-                              ),
-                              SizedBox(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      child: GestureDetector(
-                                          onTap: () =>
-                                              createTodo(documentSnapshot),
-                                          child: Container(
-                                            width: 100,
-                                            height: 30,
-                                            color: Colors.blue,
-                                            child: const Text(
-                                              'Edit',
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.white),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          )),
-                                    ),
-                                    IconButton(
-                                        icon: const Icon(Icons.delete),
-                                        onPressed: () =>
-                                            _deleteTodo(documentSnapshot.id)),
-                                  ],
                                 ),
                               ),
                             ],

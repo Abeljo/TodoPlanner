@@ -32,7 +32,7 @@ class _DetailTodoState extends State<DetailTodo> {
           ),
           Text(
             widget.body,
-            style: TextStyle(fontSize: 40),
+            style: TextStyle(fontSize: 20),
           )
         ]),
       ),
