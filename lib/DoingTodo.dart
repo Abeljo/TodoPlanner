@@ -125,6 +125,7 @@ class _DoingTodoState extends State<DoingTodo> {
                                     builder: (context) => DetailTodo(
                                       documentSnapshot['title'],
                                       documentSnapshot['body'],
+                                      documentSnapshot['due'],
                                     ),
                                   ));
                             }),

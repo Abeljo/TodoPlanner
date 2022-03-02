@@ -38,7 +38,7 @@ class _TodoMainState extends State<TodoMain> {
         builder: (BuildContext ctx) {
           return Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 TextField(
                   controller: _titleControl,
@@ -147,6 +147,7 @@ class _TodoMainState extends State<TodoMain> {
                                     builder: (context) => DetailTodo(
                                       documentSnapshot['title'],
                                       documentSnapshot['body'],
+                                      documentSnapshot['due'],
                                     ),
                                   ));
                             }),
