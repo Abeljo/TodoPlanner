@@ -15,6 +15,7 @@ class TodoMain extends StatefulWidget {
 class _TodoMainState extends State<TodoMain> {
   final TextEditingController _titleControl = TextEditingController();
   final TextEditingController _bodyControl = TextEditingController();
+  final TextEditingController _typeControl = TextEditingController();
 
   final CollectionReference todo =
       FirebaseFirestore.instance.collection('Todo');
@@ -26,6 +27,7 @@ class _TodoMainState extends State<TodoMain> {
       action = 'update';
       _titleControl.text = documentSnapshot['title'];
       _bodyControl.text = documentSnapshot['body'];
+      _typeControl.text = documentSnapshot['type'];
     }
 
     await showModalBottomSheet(
@@ -46,6 +48,10 @@ class _TodoMainState extends State<TodoMain> {
                     labelText: 'Body',
                   ),
                 ),
+                TextField(
+                  controller: _typeControl,
+                  decoration: const InputDecoration(labelText: 'Type'),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -54,10 +60,12 @@ class _TodoMainState extends State<TodoMain> {
                     onPressed: () async {
                       final String? title = _titleControl.text;
                       final String? body = _bodyControl.text;
+                      final String? type = _typeControl.text;
 
                       if (title != null && body != null) {
                         if (action == 'add') {
-                          await todo.add({"title": title, "body": body});
+                          await todo.add(
+                              {"title": title, "body": body, "type": type});
                         }
                         if (action == 'update') {
                           await todo
@@ -66,6 +74,7 @@ class _TodoMainState extends State<TodoMain> {
                         }
                         _titleControl.text = '';
                         _bodyControl.text = '';
+                        _typeControl.text = '';
 
                         Navigator.of(context).pop();
                       }
@@ -85,7 +94,10 @@ class _TodoMainState extends State<TodoMain> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: StreamBuilder(
-            stream: todo.snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection('Todo')
+                .where('type', isEqualTo: 'todo')
+                .snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
               if (streamSnapshot.hasData) {
                 return ListView.builder(
@@ -132,9 +144,15 @@ class _TodoMainState extends State<TodoMain> {
                                 createTodo(documentSnapshot);
                               }),
                           FocusedMenuItem(
-                              title: Text("Favorite"),
-                              trailingIcon: Icon(Icons.favorite_border),
-                              onPressed: () {}),
+                              title: Text("Doing"),
+                              trailingIcon: Icon(Icons.work),
+                              onPressed: () {
+                                if (documentSnapshot['type'] == 'todo') {
+                                  todo
+                                      .doc(documentSnapshot.id)
+                                      .update({"type": 'doing'});
+                                }
+                              }),
                           FocusedMenuItem(
                               title: Text(
                                 "Delete",
