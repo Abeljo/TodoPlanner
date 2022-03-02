@@ -159,31 +159,51 @@ class _DoingTodoState extends State<DoingTodo> {
                       child: Card(
                         margin: EdgeInsets.all(30),
                         shadowColor: Colors.blue,
-                        color: Colors.white,
+                        color: Colors.yellowAccent,
                         shape: RoundedRectangleBorder(
                           side:
-                              const BorderSide(color: Colors.blue, width: 0.5),
+                              const BorderSide(color: Colors.black, width: 0.5),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         elevation: 5,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              height: 200,
-                              child: ListTile(
-                                title: Padding(
-                                  padding: EdgeInsets.only(bottom: 30, top: 20),
-                                  child: Text(
-                                    documentSnapshot['title'],
-                                    style: TextStyle(fontSize: 30),
-                                  ),
-                                ),
-                                subtitle: Text(documentSnapshot['body'],
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 3,
-                                    style: TextStyle(fontSize: 25)),
-                              ),
-                            ),
+                                height: 250,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                        documentSnapshot['title'],
+                                        style: const TextStyle(
+                                            fontSize: 35,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    const Divider(),
+                                    Container(
+                                      margin: EdgeInsets.all(10),
+                                      color: Colors.white,
+                                      child: Text(documentSnapshot['body'],
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
+                                          style: TextStyle(fontSize: 25)),
+                                    ),
+                                    const Divider(),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Icon(Icons.timelapse),
+                                        Text('Due Date'),
+                                        Text(documentSnapshot['due'])
+                                      ],
+                                    )
+                                  ],
+                                )),
                           ],
                         ),
                       ),
