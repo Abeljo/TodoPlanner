@@ -32,7 +32,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentIndex = 0;
+  int currentIndex = 1;
   final Screen = [
     DoingTodo(),
     TodoMain(),
@@ -44,11 +44,10 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: CurvedNavigationBar(
           height: 60,
           index: 1,
-          //backgroundColor: Colors.transparent,
           onTap: (currentIndex) => setState(() {
                 this.currentIndex = currentIndex;
               }),
-          items: [
+          items: const [
             Icon(Icons.run_circle_rounded),
             Icon(Icons.task),
             Icon(Icons.done_all)
