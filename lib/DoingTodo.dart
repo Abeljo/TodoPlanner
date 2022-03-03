@@ -168,6 +168,12 @@ class _DoingTodoState extends State<DoingTodo> {
                           )
                         ],
                       ),
+                      Container(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text(
+                            'Doing, On Progress',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ))
                     ],
                   )),
               Container(

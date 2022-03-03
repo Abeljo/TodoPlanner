@@ -120,10 +120,10 @@ class _TodoMainState extends State<TodoMain> {
                       const Padding(padding: EdgeInsets.only(top: 40)),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           CircleAvatar(
                             backgroundColor: Colors.white,
-                            child: const Text(
+                            child: Text(
                               'HI',
                               style: TextStyle(color: Colors.blue),
                             ),
@@ -168,6 +168,12 @@ class _TodoMainState extends State<TodoMain> {
                           )
                         ],
                       ),
+                      Container(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text(
+                            'TODO, Plan Here',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ))
                     ],
                   )),
               Container(

@@ -168,6 +168,12 @@ class _DoneTodoState extends State<DoneTodo> {
                           )
                         ],
                       ),
+                      Container(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text(
+                            'DONE, Good Job',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ))
                     ],
                   )),
               Container(
