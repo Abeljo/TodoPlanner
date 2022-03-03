@@ -99,11 +99,11 @@ class _DoingTodoState extends State<DoingTodo> {
                       menuWidth: MediaQuery.of(context).size.width * 0.50,
                       blurSize: 5.0,
                       menuItemExtent: 45,
-                      menuBoxDecoration: BoxDecoration(
+                      menuBoxDecoration: const BoxDecoration(
                           color: Colors.grey,
                           borderRadius:
                               BorderRadius.all(Radius.circular(15.0))),
-                      duration: Duration(milliseconds: 100),
+                      duration: const Duration(milliseconds: 100),
                       animateMenuItems: true,
                       blurBackgroundColor: Colors.black54,
                       openWithTap:
@@ -131,7 +131,7 @@ class _DoingTodoState extends State<DoingTodo> {
                                             margin: const EdgeInsets.all(15),
                                             child: Text(
                                               documentSnapshot['title'],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 40,
                                                   color: Colors.white),
                                             ),
@@ -140,7 +140,7 @@ class _DoingTodoState extends State<DoingTodo> {
                                             margin: const EdgeInsets.all(15),
                                             child: Text(
                                                 documentSnapshot['body'],
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 20,
                                                     color: Colors.white)),
                                           ),
@@ -151,14 +151,14 @@ class _DoingTodoState extends State<DoingTodo> {
                                               Container(
                                                   margin:
                                                       const EdgeInsets.all(15),
-                                                  child: Icon(Icons.watch,
+                                                  child: const Icon(Icons.watch,
                                                       size: 30)),
                                               Container(
                                                 margin:
                                                     const EdgeInsets.all(15),
                                                 child: Text(
                                                     documentSnapshot['due'],
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 20,
                                                         color: Colors.white)),
                                               ),
@@ -171,8 +171,9 @@ class _DoingTodoState extends State<DoingTodo> {
                                               Container(
                                                 margin:
                                                     const EdgeInsets.all(15),
-                                                child: Text('Action type : ',
-                                                    style: TextStyle(
+                                                child: const Text(
+                                                    'Action type : ',
+                                                    style: const TextStyle(
                                                         fontSize: 20,
                                                         color: Colors.white,
                                                         fontWeight:
