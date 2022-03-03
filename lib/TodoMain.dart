@@ -120,7 +120,7 @@ class _TodoMainState extends State<TodoMain> {
                       const Padding(padding: EdgeInsets.only(top: 40)),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           CircleAvatar(
                             backgroundColor: Colors.white,
                             child: const Text(
@@ -224,6 +224,15 @@ class _TodoMainState extends State<TodoMain> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 180),
+                                                      child: const Icon(
+                                                        Icons.horizontal_rule,
+                                                        size: 50,
+                                                      ),
+                                                    ),
                                                     Container(
                                                       margin:
                                                           const EdgeInsets.all(
@@ -362,12 +371,13 @@ class _TodoMainState extends State<TodoMain> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                          height: 230,
+                                          height: 220,
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Container(
+                                                padding: EdgeInsets.all(10),
                                                 child: Text(
                                                   documentSnapshot['title'],
                                                   style: const TextStyle(
@@ -384,7 +394,7 @@ class _TodoMainState extends State<TodoMain> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     maxLines: 3,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       fontSize: 20,
                                                     )),
                                               ),
